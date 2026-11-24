@@ -855,6 +855,13 @@ body.pres .mw-win{width:calc(100% - 3vw);height:calc(100% - 3vh);font-size:clamp
 @keyframes tqIn{from{opacity:0;transform:translateY(-4px)}}
 @media (prefers-reduced-motion:reduce){.tq tr.tqe td{animation:none}.tqc{transition:none}}
 </style>
+<style>/* 2026-11-24 phones with a larger Android font size: grids may not grow past the screen, spec tables wrap */
+@media(max-width:899px){.g2,.g2.eq,.p1g,.c7,.tc-g{grid-template-columns:minmax(0,1fr)}}
+.g2>*,.p1g>*,.c7>*,.doc{min-width:0}
+.doc table{width:100%;max-width:100%}
+@media(max-width:600px){.doc table{table-layout:fixed}.doc td,.doc th{overflow-wrap:break-word;hyphens:auto}
+.doc.spec table th:first-child,.doc.spec table td:first-child{width:5.6em}}
+</style>
 </head>
 <body>
 <div class="top">
@@ -869,7 +876,6 @@ body.pres .mw-win{width:calc(100% - 3vw);height:calc(100% - 3vh);font-size:clamp
 <div class="sh" id="sh">
  <div class="n" id="sn">1</div>
  <div class="hx"><h1 id="st">Förfrågan kommer in</h1><p class="jr" id="sj"><b>Junioren:</b> läser specen och listar allt som är oklart.</p></div>
- <span class="tag">Simulerat exempel · fiktiv kund · exempelsiffror</span>
 </div>
 <main class="stage" id="stage">
 
