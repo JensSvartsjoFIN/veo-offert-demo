@@ -859,8 +859,20 @@ body.pres .mw-win{width:calc(100% - 3vw);height:calc(100% - 3vh);font-size:clamp
 @media(max-width:899px){.g2,.g2.eq,.p1g,.c7,.tc-g{grid-template-columns:minmax(0,1fr)}}
 .g2>*,.p1g>*,.c7>*,.doc{min-width:0}
 .doc table{width:100%;max-width:100%}
-@media(max-width:600px){.doc table{table-layout:fixed}.doc td,.doc th{overflow-wrap:break-word;hyphens:auto}
-.doc.spec table th:first-child,.doc.spec table td:first-child{width:5.6em}}
+@media(max-width:600px){.doc table:not(.xl){table-layout:fixed}.doc td,.doc th{overflow-wrap:break-word}
+/* spec excerpt on phones: one card per requirement - ID left, requirement right, the junior's note under it */
+.doc.spec table,.doc.spec tbody{display:block}.doc.spec thead{display:none}
+.doc.spec tr{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:.7em;row-gap:3px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.doc.spec td{border:0;padding:0}.doc.spec td.hand{grid-column:2}
+/* TQ register on phones: Nr, requirement and date on one line, the question full width under it */
+.doc.tq table,.doc.tq tbody{display:block}.doc.tq thead{display:none}
+.doc.tq tr:not(.tqe){display:grid;grid-template-columns:max-content minmax(0,1fr) max-content;column-gap:.8em;row-gap:4px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.doc.tq tr:not(.tqe) td{border:0;padding:0}.doc.tq tr:not(.tqe) td:nth-child(2){grid-column:1/-1;grid-row:2}
+.doc.tq tr:not(.tqe) td:nth-child(4){color:var(--soft)}.doc.tq tr.tqe,.doc.tq tr.tqe td{display:block}
+/* Rev A / Rev B side by side on phones: a long line name may break, the amount never leaves the card */
+.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.rv .db{padding:6px 7px}.rv li{font-size:.86em;gap:4px}.rv li span:first-child{min-width:0;hyphens:auto;overflow-wrap:break-word}.rv li:has(.wr){flex-wrap:wrap}.rv li span.wr{margin-left:auto}
+/* the sheet on phones: columns sized by content so Summa fits, numbers never wrap, the text column wraps on spaces */
+.doc .xl{table-layout:auto;font-size:11px}.xl td{overflow-wrap:normal;padding:2px 3px}.xl th{padding:1px 2px}.xl td.in input{width:2.6em}}
 </style>
 </head>
 <body>
@@ -1352,7 +1364,7 @@ body.pres .mw-win{width:calc(100% - 3vw);height:calc(100% - 3vh);font-size:clamp
      <li class="c" style="--d:3.85"><span>4 SCADA</span><span>126 500</span></li>
      <li class="c" style="--d:4"><span>5 Tjänster</span><span>1 205 500</span></li>
      <li class="sum c" style="--d:4.2"><span>Totalt EUR</span><span>5 754 600</span></li>
-     <li class="c" style="--d:4.35"><span>Leveranstid</span><span>A 26 v · B 30 v</span></li>
+     <li class="c" style="--d:4.35"><span>Leveranstid</span><span class="wr">A 26 v · B 30 v</span></li>
      <li class="c" style="--d:4.5"><span>Giltighet</span><span>31.5.2027</span></li>
     </ul></div>
    </div>
