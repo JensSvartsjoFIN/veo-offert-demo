@@ -2655,5 +2655,26 @@ T.addEventListener('click',function(e){var tr=e.target.closest&&e.target.closest
 window.__tqx=function(){return {rows:rows.length,open:[].map.call(T.querySelectorAll('tr.tqo'),function(t){return t.getAttribute('data-tq')}),tog:function(id){var t=T.querySelector('tr[data-tq="'+id+'"]');if(t)tog(t);return !!t}}};
 })();
 </script>
+<script>
+/* view counter (2026-11-24): open / ping / close -> pve veo_visits.py. No cookies, a random id in localStorage. */
+(function(){
+ var U='https://mette-anatomi.duckdns.org/v/hit',ls=window.localStorage,q=new URLSearchParams(location.search);
+ function rid(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36)}
+ var vid,own=0;try{vid=ls.getItem('veo_vid');if(!vid){vid=rid();ls.setItem('veo_vid',vid)}
+  if(/^(jens|me)$/i.test(q.get('r')||''))ls.setItem('veo_own','1');own=ls.getItem('veo_own')?1:0}catch(e){vid=rid()}
+ var sid=rid(),vis=0,lastV=document.hidden?0:Date.now(),max=1;
+ function slide(){var s=document.querySelector('section.scr.on'),n=s?parseInt(s.id.slice(1),10):1;if(n>max)max=n}
+ function secs(){return Math.round((vis+(lastV?Date.now()-lastV:0))/1000)}
+ function send(ev){slide();var b=JSON.stringify({ev:ev,sid:sid,vid:vid,own:own,r:q.get('r')||'',secs:secs(),max:max,
+  scr:screen.width+'x'+screen.height,lang:navigator.language,tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||''),ref:document.referrer});
+  try{if(ev==='close'&&navigator.sendBeacon){navigator.sendBeacon(U,b);return}
+   fetch(U,{method:'POST',body:b,mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){})}catch(e){}}
+ document.addEventListener('visibilitychange',function(){if(document.hidden){if(lastV){vis+=Date.now()-lastV;lastV=0}send('ping')}else lastV=Date.now()});
+ new MutationObserver(slide).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+ setInterval(function(){if(!document.hidden)send('ping')},15000);
+ addEventListener('pagehide',function(){send('close')});
+ send('open');
+})();
+</script>
 </body>
 </html>
